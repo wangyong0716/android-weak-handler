@@ -239,6 +239,9 @@ public class WeakHandler {
      *         looper processing the message queue is exiting.
      */
     public final boolean sendMessage(Message msg) {
+        if (msg.getCallback() != null) {
+            return post(msg.getCallback());
+        }
         return mExec.sendMessage(msg);
     }
 
@@ -292,6 +295,9 @@ public class WeakHandler {
      *         occurs then the message will be dropped.
      */
     public final boolean sendMessageDelayed(Message msg, long delayMillis) {
+        if (msg.getCallback() != null) {
+            return postDelayed(msg.getCallback(), delayMillis);
+        }
         return mExec.sendMessageDelayed(msg, delayMillis);
     }
 
@@ -314,6 +320,9 @@ public class WeakHandler {
      *         occurs then the message will be dropped.
      */
     public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
+        if (msg.getCallback() != null) {
+            return postDelayed(msg.getCallback(), uptimeMillis);
+        }
         return mExec.sendMessageAtTime(msg, uptimeMillis);
     }
 
@@ -330,6 +339,9 @@ public class WeakHandler {
      *         looper processing the message queue is exiting.
      */
     public final boolean sendMessageAtFrontOfQueue(Message msg) {
+        if (msg.getCallback() != null) {
+            return postAtFrontOfQueue(msg.getCallback());
+        }
         return mExec.sendMessageAtFrontOfQueue(msg);
     }
 
